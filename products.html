@@ -56,6 +56,7 @@
         <p>目前有 <span>{{ products.length }}</span> 項產品</p>
       </div>
       <div class="col-md-6">
+        {{ tempProduct }}
         <h2>單一產品細節</h2>
         <template v-if="tempProduct.title">
           <div class="card mb-3">
@@ -74,8 +75,9 @@
               </div>
             </div>
           </div>
-          <template v-for="image in tempProduct.imagesUrl" :key="image">
-            <img :src="image" alt="副圖" class="images m-2">
+          <!-- 有副圖才顯示，加入可選串連防止因為沒副圖導致的錯誤 -->
+          <template v-if="tempProduct.imagesUrl?.length">
+            <img :src="image" alt="副圖" class="images m-2" v-for="image in tempProduct.imagesUrl" :key="image">
           </template>
         </template>
         <p class="text-secondary" v-else>請選擇一個商品查看</p>
